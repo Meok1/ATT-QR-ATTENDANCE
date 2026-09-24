@@ -9,6 +9,7 @@ export type AttendanceRecord = {
 
 export type Event = {
     eventId: string;
+
     title: string;
     start: string;
     end: string;
