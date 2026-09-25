@@ -20,6 +20,10 @@ expo-env.d.ts
 .DS_Store
 
 # local env files
+<<<<<<< HEAD
+=======
+.env
+>>>>>>> 9abba22 (Midterm AttQr)
 .env*.local
 
 # teaching materials

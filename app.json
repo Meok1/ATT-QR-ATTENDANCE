@@ -13,12 +13,23 @@
     },
     "android": {
       "adaptiveIcon": {
+<<<<<<< HEAD
          
         "backgroundImage": "./assets/images/icon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.jemayelemino.QRATT"
+=======
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.bosspao.QRATT"
+>>>>>>> 9abba22 (Midterm AttQr)
     },
     "web": {
       "output": "static",
@@ -35,8 +46,13 @@
           "backgroundColor": "#ffffff"
         }
       ],
+<<<<<<< HEAD
       "expo-sqlite",
       "@react-native-community/datetimepicker"
+=======
+      "@react-native-community/datetimepicker",
+      "expo-secure-store"
+>>>>>>> 9abba22 (Midterm AttQr)
     ],
     "experiments": {
       "reactCompiler": true
@@ -44,7 +60,11 @@
     "extra": {
       "router": {},
       "eas": {
+<<<<<<< HEAD
         "projectId": "bf95fcde-90a4-4430-829f-db8d8c0b7db7"
+=======
+        "projectId": "7a47b5f9-d71a-48d1-9ec9-5058d2766874"
+>>>>>>> 9abba22 (Midterm AttQr)
       }
     }
   }

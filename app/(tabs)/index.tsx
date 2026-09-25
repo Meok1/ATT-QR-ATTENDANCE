@@ -2,14 +2,27 @@ import { router } from 'expo-router';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import AppButton from '@/components/AppButton';
+<<<<<<< HEAD
+=======
+import { useAuth } from '@/components/AuthProvider';
+>>>>>>> 9abba22 (Midterm AttQr)
 import Header from '@/components/Header';
 import { COLORS } from '@/constants/colors';
 
 export default function Index() {
+<<<<<<< HEAD
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <Header title="QR Attendance fffsf" />
+=======
+  const { profile } = useAuth();
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Header title="QR Attendance" />
+>>>>>>> 9abba22 (Midterm AttQr)
       </View>
 
       <View style={styles.bodyContainer}>
@@ -36,6 +49,17 @@ export default function Index() {
           icon="person-outline"
           onPress={() => router.push('/profile')}
         />
+<<<<<<< HEAD
+=======
+        {profile?.role === 'teacher' && (
+          <AppButton
+            theme="primary"
+            title="Create Event QR"
+            icon="school-outline"
+            onPress={() => router.push('/teacher')}
+          />
+        )}
+>>>>>>> 9abba22 (Midterm AttQr)
       </View>
     </SafeAreaView>
   );

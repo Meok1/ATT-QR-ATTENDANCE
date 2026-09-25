@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 import Ionicons from '@expo/vector-icons/Ionicons';
 import DateTimePicker, {
   type DateTimePickerEvent,
-} from '@react-native-community/datetimepicker'
-;
+} from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import {
   Platform,
@@ -17,8 +15,10 @@ import {
 import QRCode from 'react-native-qrcode-svg';
 
 import AppButton from '@/components/AppButton';
+import { useAuth } from '@/components/AuthProvider';
 import { COLORS } from '@/constants/colors';
-import { createEvent } from '@/lib/database';
+import { createEvent } from '@/lib/events';
+import { buildQRPayload } from '@/lib/qr';
 
 function toLocalISO(date: Date) {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -45,6 +45,7 @@ const QUICK_END_OPTIONS = [
 type EditTarget = 'start' | 'end';
 
 export default function TeacherScreen() {
+  const { role, session } = useAuth();
   const [title, setTitle] = useState('');
   const [eventId, setEventId] = useState('');
   const [startDate, setStartDate] = useState(() => new Date());
@@ -96,15 +97,20 @@ export default function TeacherScreen() {
     setEndDate(new Date(startDate.getTime() + ms));
   };
 
-  const handleCreateEvent = () => {
+  const handleCreateEvent = async () => {
+    if (role !== 'teacher' || !session) {
+      setMessage('Only teacher accounts can create events.');
+      return;
+    }
     const event = {
-      eventId: eventId.trim(),
+      code: eventId.trim(),
       title: title.trim(),
-      start: toLocalISO(startDate),
-      end: toLocalISO(endDate),
+      startsAt: startDate.toISOString(),
+      endsAt: endDate.toISOString(),
+      createdBy: session.user.id,
     };
 
-    if (!event.eventId || !event.title) {
+    if (!event.code || !event.title) {
       setMessage('Event title and code are required.');
       return;
     }
@@ -114,19 +120,27 @@ export default function TeacherScreen() {
       return;
     }
 
-    createEvent(event).then(() => {
+    try {
+      const savedEvent = await createEvent(event);
       setMessage('Event saved! Scan the QR with the Scan tab to test it.');
-      setPayload(
-        JSON.stringify({
-          v: 1,
-          event: event.eventId,
-          title: event.title,
-          start: event.start,
-          end: event.end,
-        })
-      );
-    });
+      setPayload(buildQRPayload({
+        event: savedEvent.code,
+        title: savedEvent.title,
+        start: savedEvent.starts_at,
+        end: savedEvent.ends_at,
+      }));
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : `Could not create event: ${String(error)}`);
+    }
   };
+
+  if (!role) {
+    return <View style={styles.container}><Text style={styles.message}>Loading account...</Text></View>;
+  }
+
+  if (role !== 'teacher') {
+    return <View style={styles.container}><Text style={styles.message}>Teacher access is required to create events.</Text></View>;
+  }
 
   return (
     <ScrollView
@@ -361,7 +375,3 @@ const styles = StyleSheet.create({
   },
 });
 
-
-=======
-export { default } from '../teacher';
->>>>>>> 9abba22 (Midterm AttQr)

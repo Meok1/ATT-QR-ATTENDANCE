@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import AppButton from '@/components/AppButton';
+<<<<<<< HEAD
 import { COLORS } from '@/constants/colors';
 
 import { registerAttendance } from "@/lib/database"     ;
@@ -15,6 +16,17 @@ const studentId = user?.id ?? 'unknown';
   const [scanned, setScanned] = useState(false);
   const [lastData, setLastData] = useState<string | null>(null);
 
+=======
+import { useAuth } from '@/components/AuthProvider';
+import { COLORS } from '@/constants/colors';
+import { registerAttendance } from '@/lib/attendance';
+
+export default function ScanScreen() {
+  const { session, profile } = useAuth();
+  const [permission, requestPermission] = useCameraPermissions();
+  const [scanned, setScanned] = useState(false);
+  const [lastData, setLastData] = useState<string | null>(null);
+>>>>>>> 9abba22 (Midterm AttQr)
   const [message, setMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -39,6 +51,7 @@ const studentId = user?.id ?? 'unknown';
     );
   }
 
+<<<<<<< HEAD
   const handleBarcodeScanned = ({ data }: { data: string }) => {
     setScanned(true);
     setLastData(data);
@@ -56,6 +69,24 @@ const studentId = user?.id ?? 'unknown';
 
 
 
+=======
+  const handleBarcodeScanned = async ({ data }: { data: string }) => {
+    setScanned(true);
+    setLastData(data);
+    if (!session || !profile || profile.role !== 'student') {
+      setMessage('Only student accounts can record attendance.');
+      return;
+    }
+    try {
+      const result = await registerAttendance(data, session.user.id);
+      setSuccess(result.success);
+      setMessage(result.message);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Could not record attendance.');
+    }
+  };
+
+>>>>>>> 9abba22 (Midterm AttQr)
   return (
     <View style={styles.container}>
       <CameraView
@@ -70,6 +101,7 @@ const studentId = user?.id ?? 'unknown';
           {scanned ? 'QR Code detected!' : 'Point your camera at a QR code'}
         </Text>
 
+<<<<<<< HEAD
         {scanned && message && (
           <Text
             style={[styles.scanResult, success ? styles.success : styles.error]}
@@ -81,13 +113,29 @@ const studentId = user?.id ?? 'unknown';
         {scanned && lastData && (
           <Text style={styles.scanData}>{lastData}</Text>
         )}
+=======
+        {scanned && lastData && (
+          <Text style={styles.scanResult}>{lastData}</Text>
+        )}
+
+        {message && <Text style={[styles.message, success && styles.success]}>{message}</Text>}
+>>>>>>> 9abba22 (Midterm AttQr)
 
         {scanned && (
           <AppButton
             theme="primary"
             title="Scan Again"
             icon="refresh"
+<<<<<<< HEAD
             onPress={() => setScanned(false)}
+=======
+            onPress={() => {
+              setScanned(false);
+              setLastData(null);
+              setMessage(null);
+              setSuccess(false);
+            }}
+>>>>>>> 9abba22 (Midterm AttQr)
           />
         )}
       </View>
@@ -138,6 +186,7 @@ const styles = StyleSheet.create({
   },
   scanResult: {
     fontSize: 14,
+<<<<<<< HEAD
     textAlign: 'center',
     marginBottom: 8,
     fontWeight: '600'
@@ -152,3 +201,17 @@ const styles = StyleSheet.create({
   },
 
 });
+=======
+    color: COLORS.primary,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  message: {
+    fontSize: 14,
+    color: '#B71C1C',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  success: { color: '#2E7D32' },
+});
+>>>>>>> 9abba22 (Midterm AttQr)
