@@ -1,29 +1,6 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
-
-import AppButton from '@/components/AppButton';
-import { COLORS } from '@/constants/colors';
-import { useAuth, signOut } from '@/lib/auth';
-
-export default function ProfileScreen() {
-  const { user } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    setLoading(true);
-    try {
-      await signOut();
-      router.replace('/login');
-    } catch (err: any) {
-      Alert.alert('Error', err?.message || 'Failed to sign out.');
-    } finally {
-      setLoading(false);
-=======
 import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { router } from 'expo-router';
 
 import AppButton from '@/components/AppButton';
 import { useAuth } from '@/components/AuthProvider';
@@ -48,33 +25,15 @@ export default function ProfileScreen() {
       setMessage('Profile updated.');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Could not update profile.');
->>>>>>> 9abba22 (Midterm AttQr)
     }
   };
 
+  const handleSignOut = async () => {
+    await signOut();
+    router.replace('/login');
+  };
+
   return (
-<<<<<<< HEAD
-    <View style={styles.container}>
-      <Text style={styles.title}>My Profile</Text>
-
-      {user && (
-        <View style={styles.infoCard}>
-          <Text style={styles.label}>Email</Text>
-          <Text style={styles.value}>{user.email}</Text>
-
-          <Text style={styles.label}>User ID</Text>
-          <Text style={styles.valueSmall}>{user.id}</Text>
-        </View>
-      )}
-
-      <AppButton
-        title="Sign Out"
-        icon="log-out-outline"
-        onPress={handleSignOut}
-        disabled={loading}
-      />
-    </View>
-=======
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.eyebrow}>ACCOUNT</Text>
@@ -86,53 +45,15 @@ export default function ProfileScreen() {
         <TextInput style={styles.input} value={fullName} onChangeText={setFullName} />
         {message && <Text style={styles.message}>{message}</Text>}
         <AppButton theme="primary" title="Save profile" icon="save-outline" onPress={saveProfile} />
-        <AppButton title="Sign out" icon="log-out-outline" onPress={signOut} />
+        <AppButton title="Sign out" icon="log-out-outline" onPress={handleSignOut} />
       </View>
     </SafeAreaView>
->>>>>>> 9abba22 (Midterm AttQr)
   );
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
-    paddingHorizontal: 24,
-    paddingTop: 24,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: COLORS.textPrimary,
-    marginBottom: 16,
-  },
-  infoCard: {
-    backgroundColor: COLORS.card,
-    borderRadius: 14,
-    padding: 16,
-    marginBottom: 24,
-  },
-  label: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: COLORS.textSecondary,
-    marginBottom: 4,
-    marginTop: 8,
-  },
-  value: {
-    fontSize: 15,
-    color: COLORS.textPrimary,
-    fontWeight: '500',
-  },
-  valueSmall: {
-    fontSize: 11,
-    color: COLORS.textSecondary,
-  },
-});
-=======
-  container: { 
-    flex: 1, 
     backgroundColor: COLORS.background,
   },
   content: { padding: 24 },
@@ -144,4 +65,3 @@ const styles = StyleSheet.create({
   input: { backgroundColor: COLORS.card, borderColor: COLORS.border, borderWidth: 1, borderRadius: 12, color: COLORS.textPrimary, paddingHorizontal: 14, paddingVertical: 13, marginBottom: 12 },
   message: { color: COLORS.primary, marginBottom: 12 },
 });
->>>>>>> 9abba22 (Midterm AttQr)

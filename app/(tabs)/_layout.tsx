@@ -1,19 +1,7 @@
-<<<<<<< HEAD
-import { Stack } from 'expo-router';
-
-import { COLORS } from '@/constants/colors';
-
-export default function RootLayout() {
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="login" />
-      <Stack.Screen name="register" />
-      <Stack.Screen name="(tabs)" />
-    </Stack>
-=======
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '@/components/AuthProvider';
+import { COLORS } from '@/constants/colors';
 
 export default function TabLayout() {
   const { role } = useAuth();
@@ -21,11 +9,26 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#ffd33d',
-        headerStyle: { backgroundColor: '#25292e' },
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: COLORS.textTertiary,
+        headerStyle: { backgroundColor: COLORS.background },
         headerShadowVisible: false,
-        headerTintColor: '#fff',
-        tabBarStyle: { backgroundColor: '#25292e' },
+        headerTintColor: COLORS.textPrimary,
+        tabBarStyle: {
+          height: 76,
+          paddingTop: 8,
+          paddingBottom: 10,
+          backgroundColor: COLORS.card,
+          borderTopColor: COLORS.border,
+          borderTopWidth: 1,
+          shadowColor: COLORS.shadow,
+          shadowOpacity: 0.12,
+          shadowRadius: 14,
+          shadowOffset: { width: 0, height: -5 },
+          elevation: 14,
+        },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '700' },
+        tabBarItemStyle: { borderRadius: 16, marginHorizontal: 2 },
       }}
     >
       <Tabs.Screen
@@ -96,6 +99,5 @@ export default function TabLayout() {
         />
       )}
     </Tabs>
->>>>>>> 9abba22 (Midterm AttQr)
   );
 }

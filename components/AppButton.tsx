@@ -11,38 +11,17 @@ type Props = {
   disabled?: boolean;
 };
 
-<<<<<<< HEAD
-export default function AppButton({ title, icon, theme, onPress }: Props) {
-=======
 export default function AppButton({ title, icon, theme, onPress, disabled = false }: Props) {
->>>>>>> 9abba22 (Midterm AttQr)
   if (theme === 'primary') {
     return (
-      <View
-        style={[
-          styles.buttonOuter,
-          { borderWidth: 3, borderColor: COLORS.primary, borderRadius: 18 },
-        ]}
-      >
+      <View style={[styles.buttonOuter, { borderWidth: 3, borderColor: COLORS.primary, borderRadius: 18 }]}> 
         <Pressable
-<<<<<<< HEAD
-          style={[styles.buttonInner, { backgroundColor: COLORS.primary }]}
-          onPress={onPress}
-=======
           style={[styles.buttonInner, { backgroundColor: COLORS.primary }, disabled && styles.disabled]}
           onPress={onPress}
           disabled={disabled}
->>>>>>> 9abba22 (Midterm AttQr)
         >
-          <Ionicons
-            name={icon}
-            size={22}
-            color={COLORS.textOnPrimary}
-            style={styles.icon}
-          />
-          <Text style={[styles.label, { color: COLORS.textOnPrimary }]}>
-            {title}
-          </Text>
+          <Ionicons name={icon} size={22} color={COLORS.textOnPrimary} style={styles.icon} />
+          <Text style={[styles.label, { color: COLORS.textOnPrimary }]}>{title}</Text>
         </Pressable>
       </View>
     );
@@ -50,17 +29,8 @@ export default function AppButton({ title, icon, theme, onPress, disabled = fals
 
   return (
     <View style={styles.buttonOuter}>
-<<<<<<< HEAD
-      <Pressable style={styles.buttonInner} onPress={onPress}>
-=======
       <Pressable style={[styles.buttonInner, disabled && styles.disabled]} onPress={onPress} disabled={disabled}>
->>>>>>> 9abba22 (Midterm AttQr)
-        <Ionicons
-          name={icon}
-          size={22}
-          color={COLORS.textSecondary}
-          style={styles.icon}
-        />
+        <Ionicons name={icon} size={22} color={COLORS.textSecondary} style={styles.icon} />
         <Text style={styles.label}>{title}</Text>
       </Pressable>
     </View>
@@ -88,8 +58,5 @@ const styles = StyleSheet.create({
   },
   icon: { paddingRight: 10 },
   label: { fontSize: 17, fontWeight: '600', color: COLORS.textPrimary },
-<<<<<<< HEAD
-=======
   disabled: { opacity: 0.55 },
->>>>>>> 9abba22 (Midterm AttQr)
 });
