@@ -25,6 +25,3 @@ expo-env.d.ts
 .env
 >>>>>>> 9abba22 (Midterm AttQr)
 .env*.local
-
-# teaching materials
-docs/
